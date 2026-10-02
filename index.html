@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BookBorrow — Library</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-icon">📚</div>
+      <div>
+        <h1>BookBorrow</h1>
+        <p>Simple library management</p>
+      </div>
+    </div>
+    <button id="refreshBtn" class="ghost-btn" type="button">↻ Refresh</button>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <span class="eyebrow">LIBRARY</span>
+        <h2>Borrow a book, keep it simple.</h2>
+        <p>Browse the collection, borrow available books, and return them when you're done.</p>
+      </div>
+    </section>
+
+    <div id="message" class="message hidden" role="status"></div>
+
+    <section class="stats">
+      <div class="stat-card">
+        <span>Total books</span>
+        <strong id="totalBooks">0</strong>
+      </div>
+      <div class="stat-card">
+        <span>Available copies</span>
+        <strong id="availableCopies">0</strong>
+      </div>
+      <div class="stat-card">
+        <span>Active loans</span>
+        <strong id="activeLoans">0</strong>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="toolbar">
+        <div>
+          <h3>Book collection</h3>
+          <p>Search by title, author, ISBN, or category.</p>
+        </div>
+        <input id="searchInput" class="search" type="search" placeholder="Search books...">
+      </div>
+      <div id="booksGrid" class="books-grid">
+        <div class="loading">Loading books...</div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <h3>Borrow a book</h3>
+          <p>Enter the borrower's name and choose an available book.</p>
+        </div>
+      </div>
+
+      <form id="borrowForm" class="form-grid">
+        <label>
+          Borrower name
+          <input id="borrowerName" type="text" maxlength="100" required placeholder="e.g. Alex Smith">
+        </label>
+        <label>
+          Book
+          <select id="borrowBook" required>
+            <option value="">Select a book...</option>
+          </select>
+        </label>
+        <label>
+          Due date
+          <input id="dueDate" type="date" required>
+        </label>
+        <button class="primary-btn" type="submit">Borrow book</button>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <h3>Active loans</h3>
+          <p>Books that have not been returned yet.</p>
+        </div>
+      </div>
+      <div id="loansList" class="loans-list">
+        <div class="loading">Loading loans...</div>
+      </div>
+    </section>
+
+    <section class="panel admin-panel">
+      <div class="section-heading">
+        <div>
+          <h3>Add a book</h3>
+          <p>Use this form to add books to your Supabase database.</p>
+        </div>
+      </div>
+
+      <form id="bookForm" class="form-grid">
+        <label>
+          Title
+          <input id="bookTitle" type="text" required maxlength="200">
+        </label>
+        <label>
+          Author
+          <input id="bookAuthor" type="text" required maxlength="150">
+        </label>
+        <label>
+          ISBN
+          <input id="bookIsbn" type="text" maxlength="30" placeholder="Optional">
+        </label>
+        <label>
+          Category
+          <input id="bookCategory" type="text" maxlength="80" placeholder="e.g. Fiction">
+        </label>
+        <label>
+          Copies
+          <input id="bookCopies" type="number" min="1" max="1000" value="1" required>
+        </label>
+        <button class="secondary-btn" type="submit">Add book</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>BookBorrow • Powered by Supabase</p>
+  </footer>
+
+  <!-- Supabase JavaScript client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="script.js"></script>
+</body>
+</html>
